@@ -12,6 +12,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
 
+/*Facilitate to connect multiple clients by gracefully handling request queue.
+ After the connection convert a lowercase request string to upper case.*/
+
 public class WorkerThreadServer {
 
     public static int SERVICE_PORT = 9898;
