@@ -27,7 +27,7 @@ public class WorkerThreadServer {
 
         ExecutorService executorService;
         //Create a bounded queue
-        final BlockingQueue<Runnable> queue = new ArrayBlockingQueue(QUEUE_SIZE);
+        final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(QUEUE_SIZE);
 
         //Pass created queue with min max thread pool sizes to executor service
         executorService = new ThreadPoolExecutor(MIN_SIZE, MAX_SIZE,0L, TimeUnit.MILLISECONDS, queue);
