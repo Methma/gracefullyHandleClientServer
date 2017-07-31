@@ -22,12 +22,12 @@ public class WorkerThreadServer {
 
     public static void main(String[] args) throws Exception {
 
-//        ExecutorService executorService = Executors.newFixedThreadPool(MAX_SIZE);
-
-        ExecutorService executorService2;
+        ExecutorService executorService;
+        //Create a bounded queue
         final BlockingQueue<Runnable> queue = new ArrayBlockingQueue(QUEUE_SIZE);
 
-        executorService2 = new ThreadPoolExecutor(MIN_SIZE, MAX_SIZE,0L, TimeUnit.MILLISECONDS, queue);
+        //Pass created queue with min max thread pool sizes to executor service
+        executorService = new ThreadPoolExecutor(MIN_SIZE, MAX_SIZE,0L, TimeUnit.MILLISECONDS, queue);
 
 
         System.out.println("The worker thread server is running.");
@@ -35,15 +35,12 @@ public class WorkerThreadServer {
         ServerSocket listener = new ServerSocket(SERVICE_PORT);
         try {
             while (true) {
-//                new Capitalizer(listener.accept(), clientNumber++).start();
-//                executorService.execute(new Capitalizer(listener.accept(),clientNumber++));
-                executorService2.execute(new Capitalizer(listener.accept(),clientNumber++));
+
+                executorService.execute(new Capitalizer(listener.accept(),clientNumber++));
 
             }
         } finally {
-//            listener.close();
-//            executorService.shutdown();
-//            executorService2.shutdown();
+            executorService.shutdown();
         }
     }
 
