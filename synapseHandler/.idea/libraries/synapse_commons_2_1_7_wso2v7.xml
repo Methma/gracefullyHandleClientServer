@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="synapse-commons_2.1.7.wso2v7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Software/ESB/wso2esb-5.0.0/repository/components/plugins/synapse-commons_2.1.7.wso2v7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
