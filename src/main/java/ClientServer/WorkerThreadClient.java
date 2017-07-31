@@ -29,7 +29,7 @@ public class WorkerThreadClient {
 
     public WorkerThreadClient() {
 
-        // Layout GUI
+        // Layout GUIl
         messageArea.setEditable(false);
         frame.getContentPane().add(dataField, "North");
         frame.getContentPane().add(new JScrollPane(messageArea), "Center");

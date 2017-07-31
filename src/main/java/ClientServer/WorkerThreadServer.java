@@ -11,43 +11,39 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
-//import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 public class WorkerThreadServer {
 
     public static int SERVICE_PORT = 9898;
-    public static int MAX_SIZE = 2;
+    public static int MAX_SIZE = 3;
+    public static int MIN_SIZE = 2;
+    public static int QUEUE_SIZE = 2;
 
 
     public static void main(String[] args) throws Exception {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(MAX_SIZE);
+//        ExecutorService executorService = Executors.newFixedThreadPool(MAX_SIZE);
 
-//        final ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("Orders-%d").setDaemon(true).build();
-////        final ExecutorService executorService = Executors.newFixedThreadPool(10, threadFactory);
-//        ExecutorService executorService2 = Executors.newFixedThreadPool(MAX_SIZE);
-//        final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(100);
+        ExecutorService executorService2;
+        final BlockingQueue<Runnable> queue = new ArrayBlockingQueue(QUEUE_SIZE);
 
-//        ListeningExecutorService producerExecutorService = MoreExecutors.listeningDecorator(newFixedThreadPoolWithQueueSize(5, 20));
-//        ListeningExecutorService consumerExecutorService = MoreExecutors.listeningDecorator(newFixedThreadPoolWithQueueSize(5, 20));
-
+        executorService2 = new ThreadPoolExecutor(MIN_SIZE, MAX_SIZE,0L, TimeUnit.MILLISECONDS, queue);
 
 
         System.out.println("The worker thread server is running.");
-        int clientNumber = 0;
+        int clientNumber = 1;
         ServerSocket listener = new ServerSocket(SERVICE_PORT);
         try {
             while (true) {
 //                new Capitalizer(listener.accept(), clientNumber++).start();
-                executorService.execute(new Capitalizer(listener.accept(),clientNumber++));
-
-//                executorService = new ThreadPoolExecutor(n, n,0L, TimeUnit.MILLISECONDS,
-//                        queue);
+//                executorService.execute(new Capitalizer(listener.accept(),clientNumber++));
+                executorService2.execute(new Capitalizer(listener.accept(),clientNumber++));
 
             }
         } finally {
 //            listener.close();
-            executorService.shutdown();
+//            executorService.shutdown();
+//            executorService2.shutdown();
         }
     }
 
@@ -100,11 +96,7 @@ public class WorkerThreadServer {
         private void log(String message) {
             System.out.println(message);
         }
-
-        //TODO Simple app server with a thread queue on Monday. Thread pool can be configured min & max. If exceeded can queue. but cannot infinitely queue.build client file. Shell script. Even for client side. Pass min max as parameters.
-        //TODO Client shell script number of clients. Put logs on how many clients waiting.
-        //TODO Gracefully handle multiple clients.
-
+        
     }
 
 }
