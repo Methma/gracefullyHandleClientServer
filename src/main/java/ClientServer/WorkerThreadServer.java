@@ -96,7 +96,7 @@ public class WorkerThreadServer {
         private void log(String message) {
             System.out.println(message);
         }
-        
+
     }
 
 }
